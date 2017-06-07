@@ -1,0 +1,107 @@
+create or replace procedure forModify(p_empid number,p_phone in out phone_no1) as 
+var number;
+begin
+var:=p_phone.count;
+p_phone.extend(1);
+p_phone(var+1):=abc1('demo','demopl');
+update emp_v1 set phone=p_phone where empid=p_empid;
+dbms_output.put_line('done');
+end;
+/
+
+declare
+t_phone phone_no1;
+begin
+select phone into t_phone from emp_v1 where empid=1;
+forModify(1,t_phone);
+end;
+/
+=====================================================================================================================
+                                            ***Nested Table***
+
+create type Vehicle as object(vid number, vname varchar2(20));
+
+create type vehicle_tab as table of Vehicle;
+
+create table Person_data(pid number,pname varchar2(20),vehicle_details vehicle_tab)
+nested table vehicle_details store as vehicle_details_tab;
+
+insert into Person_data values(1,'Priti',vehicle_tab(Vehicle(1,'alto'),Vehicle(2,'mlto')));
+
+declare 
+new_vehicle vehicle_tab;
+begin
+new_vehicle:=vehicle_tab(vehicle(1,'firstVehicle'),vehicle(2,'secondvehicle'));
+update person_data set vehicle_details=new_vehicle where pid=1;
+dbms_output.put_line('Updated');
+end;
+/
+
+select * from Person_data;
+
+insert into Person_data values(1,'riti',vehicle_tab(Vehicle(1,'alto'),Vehicle(2,'mlto')));
+
+declare
+l_name person_data.pname%type;
+l_vehicle person_data.vehicle_details%type;
+cursor get_data is select pname,vehicle_details from person_data;
+begin
+open get_data;
+loop
+fetch get_data into l_name,l_vehicle;
+exit when get_data%notfound;
+dbms_output.put_line('person name='||l_name||'and vehicles are');
+for x in 1..l_vehicle.count
+loop
+dbms_output.put_line(l_vehicle(x).vname);
+end loop;
+end loop;
+end;
+/
+insert into Person_data values(2,'riti',vehicle_tab(Vehicle(1,'alto'),Vehicle(2,'mlto')));
+update the( select vehicle_details from Person_data where pid=2)
+set vname='new_vehicle_scooty' where vid=1;
+
+insert into the( select vehicle_details from Person_data where pid=2) values (vehicle(3,'kinetic')); 
+
+delete from the( select vehicle_details from Person_data where pid=2) where vid=1; 
+=====================================================================================================================
+                                       ***Trigger***
+create trigger tr_update_sal after update on emp
+begin
+dbms_output.put_line('sal is updated from trigger');
+end;
+/
+#  update emp set sal=sal+1000;
+# this is statement level trigger.
+
+create or replace trigger tr_update_sal after update on emp
+for each row
+begin
+dbms_output.put_line('sal is updated from trigger');
+end;
+/
+# update emp set sal=sal+1000;
+# this is row level.
+
+create or replace trigger tr_update_sal after update or insert or delete on emp
+for each row
+begin
+dbms_output.put_line('sal is updated from trigger');
+end;
+/
+
+create or replace trigger tr_update_sal after update or insert or delete on emp
+for each row
+begin
+if inserting then
+dbms_output.put_line('inserting rows');
+elsif updating then
+dbms_output.put_line('updating rows');
+elsif deleting then
+dbms_output.put_line('deleting rows');
+end if;
+dbms_output.put_line('sal is updated from trigger');
+end;
+/
+
