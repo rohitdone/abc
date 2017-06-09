@@ -1,0 +1,76 @@
+Tables:
+
+Views -- Operations Team Head, Operations Team Member, Learning Officer
+
+Labs
+LabID   (PK)
+LabName(*)
+LocationID (FK)
+Capacity
+Status
+BookingID (FK)
+Condition
+Type
+Projector
+VC
+Phone
+Boards
+Mike
+SoundSystem
+Verification
+
+Locations
+LocationID (PK)
+LocationName
+ZoneID (FK)
+CountryID (FK)
+
+Zones
+ZoneID  (PK) ---- INDIA, FOREIGN
+ZoneName
+
+CityLocation
+LocationID(FK)
+CityLocationID(PK)
+CLName
+
+Countries
+CountryID (PK)
+CountryName
+ZoneID (FK)
+
+Booking
+BookingID (PK)
+BookingDate
+ReleaseDate
+LoID (FK)
+OtmID (FK)
+
+LO
+LoID (PK)
+LoName
+
+OTM
+OtmID (PK)
+OtmName
+OthID (FK)
+
+OTH
+OthID (PK)
+OthName
+
+Request
+RequestID(PK)
+RequestDate
+ApprovalStatus
+LoID(FK)
+OtmID(FK)
+
+
+
+LabAdd -- OTH
+LabDeactivate -- OTH
+LabInfo -- OTH,OTM,LO
+LabOccupancyDetails -- OTH,OTM,LO
+LabSearch -- OTH,OTM
+

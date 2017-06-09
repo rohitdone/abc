@@ -1,0 +1,100 @@
+1. LO will RAISE REQUEST to book lab
+2.OTM will VIEW the request and will respond to it (accept/reject) 
+
+3a. (accept) OTM will book lab against LO's name and change Status as booked
+3b. (reject) OTM will send reject alert to LO
+
+4. After completion of training, LO will send request to release the lab
+5. OTM will VIEW the request and will respond to it (accept/reject) or escalate for verification
+
+6a. (accept) OTM will release lab  and change Status as free
+6b. (reject) OTM will send reject alert to LO
+6c. (verification) OTM will escalate request to OTH for verification(in case of some ambiguity)
+6c1. OTH will review request and respond to it (OTM will get the notification) 
+6c2. According to the response from OTH, OTM will take 3a or 3b
+
+7. In case of any damage, status will be changed to Not-Available by OTM
+
+
+
+WEBFRAMES
+
+1. Home Page (Login)
+
+2a. If OTH, then OthHome
+	1. View Labs
+		1. View All Labs (Sorted by ID)
+		2. Search a Lab (by ID)
+			1. Form Showing text Box to input ID
+				1. Required Lab in table format
+		3. View Labs (according to city)
+			1. Form with Drop down list for city
+				1. Corresponding labs in table
+		4. View Labs (at Location)
+			1. Form with Drop down list for location
+				1. Corresponding labs in table
+		5. View Labs (by status)
+			1. Form with Drop down list for status
+				1. Corresponding labs in table
+		6. View Labs (by Capacity)
+			1. Form Showing text Box to input capacity
+				1. Required Labs in table format
+	2. Add/Remove Labs
+		1. Add Lab
+			1. Form to enter all Lab Details
+		2. Remove Lab
+			1. Form to enter Lab ID
+	3. Requests
+		1. Request details Displayed in table
+	4. Lab Occupancy Details
+		1. Form to enter Lab ID
+			1. Occcupancy details displayed
+2b. If OTM, then OtmHome
+	1. View Labs
+		1. View All Labs (Sorted by ID)
+		2. Search a Lab (by ID)
+			1. Form Showing text Box to input ID
+				1. Required Lab in table format
+		3. View Labs (according to city)
+			1. Form with Drop down list for city
+				1. Corresponding labs in table
+		4. View Labs (at Location)
+			1. Form with Drop down list for location
+				1. Corresponding labs in table
+		5. View Labs (by status)
+			1. Form with Drop down list for status
+				1. Corresponding labs in table
+		6. View Labs (by Capacity)
+			1. Form Showing text Box to input ID
+				1. Required Labs in table format
+	2. Requests
+		1. Request details Displayed in table
+		2. Escalate Requests
+			1. For escalation of requests(displayed in Table)
+	3. Change Status
+		1. Form to enter Lab ID
+			1. Select Status form drop down
+2c. If LO, then LoHome
+	1. View Labs
+		1. View All Labs (Sorted by ID)
+		2. Search a Lab (by ID)
+			1. Form Showing text Box to input ID
+				1. Required Lab in table format
+		3. View Labs (according to city)
+			1. Form with Drop down list for city
+				1. Corresponding labs in table
+		4. View Labs (at Location)
+			1. Form with Drop down list for location
+				1. Corresponding labs in table
+		5. View Labs (by status)
+			1. Form with Drop down list for status
+				1. Corresponding labs in table
+		6. View Labs (by Capacity)
+			1. Form Showing text Box to input ID
+				1. Required Labs in table format
+	2. Book a Lab
+		1. Form to Enter Lab ID
+			1. Request Raised displayed with request info
+	3. Release a Lab
+		1. Select a lab from labs Shown
+			1. Request Raised displayed with request info
